@@ -1,4 +1,4 @@
-package net.andreasdarsa.firstmod;
+package net.andreasdarsa.medievalmod;
 
 import java.util.List;
 

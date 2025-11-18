@@ -2,6 +2,7 @@ package net.andreasdarsa.medievalmod.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.andreasdarsa.medievalmod.entity.ModEntities;
+import net.andreasdarsa.medievalmod.entity.custom.DiamondThroneEntity;
 import net.andreasdarsa.medievalmod.entity.custom.WoodenThroneEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -24,16 +25,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class WoodenThroneBlock extends HorizontalDirectionalBlock {
-    public static final MapCodec<WoodenThroneBlock> CODEC = simpleCodec(WoodenThroneBlock::new);
+public class DiamondThroneBlock extends HorizontalDirectionalBlock {
+    public static final MapCodec<GoldenThroneBlock> CODEC = simpleCodec(GoldenThroneBlock::new);
     public static final VoxelShape SHAPE = Block.box(-4.0D,0.0D,-4.0D,20.0D,24.0D,20.0D);
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
-
-    protected WoodenThroneBlock(Properties properties) {
+    protected DiamondThroneBlock(Properties properties) {
         super(properties);
     }
 
@@ -41,9 +36,9 @@ public class WoodenThroneBlock extends HorizontalDirectionalBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide()){
             Entity entity = null;
-            List<WoodenThroneEntity> entities = level.getEntities(ModEntities.WOODEN_THRONE_ENTITY.get(), new AABB(pos), chair -> true);
+            List<DiamondThroneEntity> entities = level.getEntities(ModEntities.DIAMOND_THRONE_ENTITY.get(), new AABB(pos), chair -> true);
             if (entities.isEmpty()){
-                entity = ModEntities.WOODEN_THRONE_ENTITY.get().spawn((ServerLevel) level, pos, MobSpawnType.TRIGGERED);
+                entity = ModEntities.DIAMOND_THRONE_ENTITY.get().spawn((ServerLevel) level, pos, MobSpawnType.TRIGGERED);
             }
             else{
                 entity = entities.get(0);
@@ -58,6 +53,11 @@ public class WoodenThroneBlock extends HorizontalDirectionalBlock {
     @Override
     protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     @Nullable

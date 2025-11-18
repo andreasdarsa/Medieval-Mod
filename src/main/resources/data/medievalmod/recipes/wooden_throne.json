@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I  ",
+    "PWP",
+    "S S"
+  ],
+  "key": {
+    "P": "minecraft:planks",
+    "S": "minecraft:wooden_slabs",
+    "I": "minecraft:gold_ingot",
+    "W": "minecraft:red_wool"
+  },
+  "result": {
+    "count": 1,
+    "id": "medievalmod:wooden_throne"
+  }
+}
