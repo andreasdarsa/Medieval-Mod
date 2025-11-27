@@ -6,6 +6,7 @@ import net.andreasdarsa.medievalmod.entity.client.DiamondThroneRenderer;
 import net.andreasdarsa.medievalmod.entity.client.GoldenThroneRenderer;
 import net.andreasdarsa.medievalmod.entity.client.IronThroneRenderer;
 import net.andreasdarsa.medievalmod.entity.client.WoodenThroneRenderer;
+import net.andreasdarsa.medievalmod.item.ModItems;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +48,8 @@ public class MedievalMod {
         NeoForge.EVENT_BUS.register(this);
 
         ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModEntities.ENTITY_TYPES.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -66,6 +69,9 @@ public class MedievalMod {
             event.accept(ModBlocks.IRON_THRONE);
             event.accept(ModBlocks.GOLDEN_THRONE);
             event.accept(ModBlocks.DIAMOND_THRONE);
+        }
+        if (event.getTabKey() == CreativeModeTabs.COMBAT){
+            event.accept(ModItems.EXCALIBUR);
         }
     }
 
