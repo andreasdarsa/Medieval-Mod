@@ -1,7 +1,9 @@
 package net.andreasdarsa.medievalmod.block;
 
 import net.andreasdarsa.medievalmod.MedievalMod;
+import net.andreasdarsa.medievalmod.block.custom.WoodenThroneBlock;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -11,13 +13,14 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.world.level.block.Block;
 import net.andreasdarsa.medievalmod.item.ModItems;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MedievalMod.MOD_ID);
 
-    public static final DeferredBlock<Block> WOODEN_THRONE = registerBlock("wooden_throne",
-            () -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final DeferredBlock<WoodenThroneBlock> RED_WOODEN_THRONE = registerBlock("red_wooden_throne",
+            () -> new WoodenThroneBlock(DyeColor.RED ,BlockBehaviour.Properties.of().noOcclusion()));
 
     public static final DeferredBlock<Block> IRON_THRONE = registerBlock("iron_throne",
             () -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
@@ -27,6 +30,7 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> DIAMOND_THRONE = registerBlock("diamond_throne",
             () -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+
 
     public static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

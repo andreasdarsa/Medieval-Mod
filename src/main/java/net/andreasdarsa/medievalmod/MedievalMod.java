@@ -1,6 +1,7 @@
 package net.andreasdarsa.medievalmod;
 
 import net.andreasdarsa.medievalmod.block.ModBlocks;
+import net.andreasdarsa.medievalmod.client.ClientItemProperties;
 import net.andreasdarsa.medievalmod.entity.ModEntities;
 import net.andreasdarsa.medievalmod.entity.client.DiamondThroneRenderer;
 import net.andreasdarsa.medievalmod.entity.client.GoldenThroneRenderer;
@@ -9,9 +10,12 @@ import net.andreasdarsa.medievalmod.entity.client.WoodenThroneRenderer;
 import net.andreasdarsa.medievalmod.item.ModItems;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -53,24 +57,25 @@ public class MedievalMod {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::commonSetup);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-
+    private void commonSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(ClientItemProperties::register);
     }
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey()== CreativeModeTabs.FUNCTIONAL_BLOCKS){
-            event.accept(ModBlocks.WOODEN_THRONE);
-            event.accept(ModBlocks.IRON_THRONE);
-            event.accept(ModBlocks.GOLDEN_THRONE);
-            event.accept(ModBlocks.DIAMOND_THRONE);
+            event.accept(ModBlocks.RED_WOODEN_THRONE);
+            //event.accept(ModBlocks.IRON_THRONE);
+            //event.accept(ModBlocks.GOLDEN_THRONE);
+            //event.accept(ModBlocks.DIAMOND_THRONE);
         }
-        if (event.getTabKey() == CreativeModeTabs.COMBAT){
+        if (event.getTabKey() == CreativeModeTabs.COMBAT || event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
             event.accept(ModItems.EXCALIBUR);
         }
     }
@@ -86,10 +91,10 @@ public class MedievalMod {
     static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ModEntities.WOODEN_THRONE_ENTITY.get(), WoodenThroneRenderer::new);
-            EntityRenderers.register(ModEntities.IRON_THRONE_ENTITY.get(), IronThroneRenderer::new);
-            EntityRenderers.register(ModEntities.GOLDEN_THRONE_ENTITY.get(), GoldenThroneRenderer::new);
-            EntityRenderers.register(ModEntities.DIAMOND_THRONE_ENTITY.get(), DiamondThroneRenderer::new);
+            EntityRenderers.register(ModEntities.RED_WOODEN_THRONE_ENTITY.get(), WoodenThroneRenderer::new);
+            //EntityRenderers.register(ModEntities.IRON_THRONE_ENTITY.get(), IronThroneRenderer::new);
+            //EntityRenderers.register(ModEntities.GOLDEN_THRONE_ENTITY.get(), GoldenThroneRenderer::new);
+            //EntityRenderers.register(ModEntities.DIAMOND_THRONE_ENTITY.get(), DiamondThroneRenderer::new);
         }
     }
 }

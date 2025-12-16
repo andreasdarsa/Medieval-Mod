@@ -2,5 +2,13 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "medievalmod:item/excalibur"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "medievalmod:damage_state": 1.0
+      },
+      "model": "medievalmod:item/damaged_excalibur"
+    }
+  ]
 }
